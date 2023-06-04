@@ -35,14 +35,12 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
         // Get the holidays from the page
         $crawler->filter('.festives-list__item')->each(function (Crawler $node) use ($country, $location, $year, $results) {
             $split_result = explode(",", $node->text());
-            $div_node = $node->filterXPath('//div[@itemscope]')->first();
-            $node = $div_node->filterXPath('//meta[@itemprop="name"]')->first();
 
             // Add the holiday to the results
             $results->add(new Holiday(
                 $location,
                 $this->parseDate(trim($split_result[1]), $year, $country->getLocale()),
-                ucfirst(trim($node->attr('content')))));
+                $this->removeLastDayOfTheWeek($split_result[0], $country->getLocale())));
         });
 
         return $results;
@@ -78,10 +76,41 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
         $months = [];
         for ($month = 1; $month <= 12; $month++) {
             $date = new DateTime('2000-' . $month . '-01');
-            $format = new \IntlDateFormatter($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE, null, null, 'MMMM');
-            $months[$format->format($date)] = ['numericMonth' => $month];
+            $monthFormatter = new \IntlDateFormatter($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE, null, null, 'MMMM');
+            $months[$monthFormatter->format($date)] = ['numericMonth' => $month];
         }
         $numericMonth = $months[strtolower($monthToFind)]['numericMonth'];
         return str_pad($numericMonth, 2, '0', STR_PAD_LEFT);
+    }
+
+    /*
+     * Remove the last day of the week from a string
+     * @param string $name Name to remove the last day of the week
+     * @param string $locale Locale to use
+     * @return string Name without the last day of the week in the name
+     */
+    private function removeLastDayOfTheWeek(string $name, string $locale): string
+    {
+        // Get a list of days of the week according to the locale
+        for ($days = 1; $days <= 7; $days++) {
+            // 2001-01-01 was a Monday
+            $date = new DateTime('2001-01-' . str_pad($days, 2, '0', STR_PAD_LEFT));
+            $dayFormatter = new \IntlDateFormatter($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::NONE, null, null, 'EEEE');
+            $daysOfTheWeek[] = ucfirst($dayFormatter->format($date));
+        }
+
+        // Split the name by spaces
+        $splitName = explode(" ", $name);
+
+        // Reverse loop the array and remove the first day of the week found
+        for ($i = count($splitName) - 1; $i >= 0; $i--) {
+            // If the word is in the days of the week array, remove it
+            if (in_array($splitName[$i], $daysOfTheWeek)) {
+                $name = str_replace($splitName[$i], "", $name);
+                break;
+            }
+        }
+
+        return trim($name);
     }
 }
