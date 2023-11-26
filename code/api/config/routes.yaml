@@ -1,0 +1,2 @@
+api:
+    resource: ../src/BankHoliday/Api/Infrastructure/Routes/routes.yml
