@@ -1,0 +1,4 @@
+api.getHolidays:
+  path: /holidays
+  controller: 'api.controller.bankholiday.getHolidays'
+  methods: [GET]
