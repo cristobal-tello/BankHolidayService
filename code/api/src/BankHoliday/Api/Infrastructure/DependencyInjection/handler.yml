@@ -1,0 +1,6 @@
+services:
+  api.query.bankholidayhandler:
+    class: Acme\Services\BankHoliday\Api\Application\Query\BankHoliday\BankHolidayHandler
+    arguments:
+      - '@api.repository.bankholidayrepository'
+    public: true
