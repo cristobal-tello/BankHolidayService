@@ -1,8 +1,8 @@
 <?php
 
-namespace Acme\Services\BankHoliday\Api\Domain\Model\Holidays;
+namespace Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday;
 
-class BankHoliday
+class Location
 {
     private int $id;
     private string $name;
@@ -11,7 +11,6 @@ class BankHoliday
     {
         $this->id = $id;
         $this->name = $name;
-
     }
 
     public function id(): int
@@ -19,11 +18,8 @@ class BankHoliday
         return $this->id;
     }
 
-
     public function name(): string
     {
         return $this->name;
     }
-
-
 }

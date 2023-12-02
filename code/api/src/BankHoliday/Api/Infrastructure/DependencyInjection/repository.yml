@@ -1,0 +1,3 @@
+services:
+  api.repository.bankholidayrepository:
+    class : Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\BankHolidayMockRepository

@@ -1,4 +1,6 @@
 services:
   api.controller.bankholiday.getHolidays:
-    class: Acme\Services\BankHoliday\Api\Infrastructure\Http\Controller\Holidays\GetHolidaysController
+    class: Acme\Services\BankHoliday\Api\Infrastructure\Http\Controller\BankHoliday\GetHolidaysController
+    arguments:
+      - '@api.query.bankholidayhandler'
     public: true
