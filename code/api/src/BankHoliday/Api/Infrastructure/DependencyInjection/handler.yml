@@ -2,7 +2,6 @@ services:
   api.query.bankholidayhandler:
     class: Acme\Services\BankHoliday\Api\Application\Query\BankHoliday\BankHolidayHandler
     arguments:
-      - '@api.repository.bankholidaydoctrinerepository'
       - '@api.repository.locationdoctrinerepository'
       - '@api.services.bankholikdaycalendariolaboralfinder'
     public: true

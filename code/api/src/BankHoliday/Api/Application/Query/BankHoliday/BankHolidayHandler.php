@@ -6,20 +6,17 @@ use Acme\Services\BankHoliday\Api\Application\Request\BankHoliday\BankHolidayReq
 use Acme\Services\BankHoliday\Api\Application\Response\BankHoliday\BankHolidayResponse;
 use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\BankHoliday;
 use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\Location;
-use Acme\Services\BankHoliday\Api\Domain\Repository\BankHoliday\BankHolidayRepositoryInterface;
 use Acme\Services\BankHoliday\Api\Domain\Repository\BankHoliday\LocationRepositoryInterface;
 use Acme\Services\BankHoliday\Api\Domain\Services\BankHoliday\BankHolidayFinderInterface;
 use Ramsey\Uuid\Uuid;
 
 class BankHolidayHandler
 {
-    private BankHolidayRepositoryInterface $bankHolidayRepository;
     private LocationRepositoryInterface $locationRepository;
     private BankHolidayFinderInterface $bankHolidayFinder;
 
-    public function __construct(BankHolidayRepositoryInterface $bankHolidayRepository, LocationRepositoryInterface $locationRepository, BankHolidayFinderInterface $bankHolidayFinder)
+    public function __construct(LocationRepositoryInterface $locationRepository, BankHolidayFinderInterface $bankHolidayFinder)
     {
-        $this->bankHolidayRepository = $bankHolidayRepository;
         $this->locationRepository = $locationRepository;
         $this->bankHolidayFinder = $bankHolidayFinder;
     }

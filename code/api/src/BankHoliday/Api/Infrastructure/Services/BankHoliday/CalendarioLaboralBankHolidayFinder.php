@@ -16,7 +16,7 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
     const JSON_DATA_START = "var JSONData = ";
     const JSON_DATA_END = "var data = JSONData.replaceAll";
 
-    /* Return a list of bank holidays for a given country, location and year
+    /* Return a list of bank holidays for a given location and year
     * @param string $location Location to get bank holidays
     * @param int $year Year to get bank holidays
     * @return Array List of bank holidays
@@ -49,7 +49,7 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
 
                 // We have a valid json with the holidays info, loop to get all holidays
                 foreach ($json->festives as $festiveDay) {
-                    $festiveDateTime = new DateTime($festiveDay->fecha);
+                    $festiveDateTime = new DateTime($festiveDay->endDate);
                     $festiveDateTime->setTime(0, 0, 0);
                     $results->append(
                         [

@@ -19,22 +19,17 @@ class GetHolidaysController
     public function __invoke(Request $request)
     {
         try {
-            /*$bankHolidayRequest = new BankHolidayRequest(
+            $bankHolidayRequest = new BankHolidayRequest(
                 $request->get('location'),
                 $request->get('year')
-            );*/
-
-            $bankHolidayRequest = new BankHolidayRequest(
-                'Tarragona', 
-                2023
             );
-            
-            $bankHolidays = ($this->bankHolidayHandler)($bankHolidayRequest);
+
+            $bankHolidaysResponse = ($this->bankHolidayHandler)($bankHolidayRequest);
 
             $response = new JsonResponse(
                 [
                     'status' => 'ok',
-                    'result' => $bankHolidays
+                    'result' => $bankHolidaysResponse
                 ]
             );
         } catch (\Throwable $exception) {

@@ -7,7 +7,7 @@ class BankHolidayRequest
     private string $location;
     private ?int $year;
 
-    public function __construct(string $location, int $year=null)
+    public function __construct(string $location, int $year = null)
     {
         $this->location = $location;
         $this->year = $year;
@@ -18,7 +18,7 @@ class BankHolidayRequest
         return $this->location;
     }
 
-    public function year() : ?int
+    public function year(): ?int
     {
         return $this->year;
     }

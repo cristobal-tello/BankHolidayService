@@ -18,5 +18,5 @@ abstract class DoctrineRepository
         $this->table = $this->entityManager->getClassMetadata($this->entityClassName())->getTableName();
     }
 
-    abstract protected function entityClassName() : string;
+    abstract protected function entityClassName(): string;
 }

@@ -3,15 +3,16 @@
 namespace Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\Entity;
 
 use DateTimeInterface;
+use Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\Entity\Location as LocationEntity;
 
 class BankHoliday
 {
     private string $id;
-    private Location $location;
+    private LocationEntity $location;
     private string $name;
     private DateTimeInterface $date;
 
-    public function __construct(string $id, Location $location, DateTimeInterface $date, string $name)
+    public function __construct(string $id, LocationEntity $location, DateTimeInterface $date, string $name)
     {
         $this->id = $id;
         $this->location = $location;
