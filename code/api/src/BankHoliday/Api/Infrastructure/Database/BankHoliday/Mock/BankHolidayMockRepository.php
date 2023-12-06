@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday;
+namespace Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Mock;
 
 use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\BankHoliday;
 use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\Location;

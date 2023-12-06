@@ -3,7 +3,9 @@
 namespace Acme\Services\BankHoliday\Api\Infrastructure\Http\Controller\BankHoliday;
 
 use Acme\Services\BankHoliday\Api\Application\Query\BankHoliday\BankHolidayHandler;
+use Acme\Services\BankHoliday\Api\Application\Request\BankHoliday\BankHolidayRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class GetHolidaysController
 {
@@ -14,10 +16,20 @@ class GetHolidaysController
         $this->bankHolidayHandler = $bankHolidayHandler;
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         try {
-            $bankHolidays = ($this->bankHolidayHandler)();
+            /*$bankHolidayRequest = new BankHolidayRequest(
+                $request->get('location'),
+                $request->get('year')
+            );*/
+
+            $bankHolidayRequest = new BankHolidayRequest(
+                'Tarragona', 
+                2023
+            );
+            
+            $bankHolidays = ($this->bankHolidayHandler)($bankHolidayRequest);
 
             $response = new JsonResponse(
                 [

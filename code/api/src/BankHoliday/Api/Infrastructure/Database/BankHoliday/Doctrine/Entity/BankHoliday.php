@@ -1,18 +1,17 @@
 <?php
 
-namespace Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday;
+namespace Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\Entity;
 
-use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\Location;
-use DateTime;
+use DateTimeInterface;
 
 class BankHoliday
 {
     private string $id;
     private Location $location;
-    private DateTime $date;
     private string $name;
+    private DateTimeInterface $date;
 
-    public function __construct(string $id, Location $location, DateTime $date, string $name)
+    public function __construct(string $id, Location $location, DateTimeInterface $date, string $name)
     {
         $this->id = $id;
         $this->location = $location;
@@ -25,7 +24,7 @@ class BankHoliday
         return $this->id;
     }
 
-    public function date(): DateTime
+    public function date(): DateTimeInterface
     {
         return $this->date;
     }

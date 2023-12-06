@@ -19,4 +19,4 @@ reload:
 	$(COMPOSE) build
 	$(COMPOSE) up -d
 bash:
-	docker exec -it $(PROJECT_NAME)_api_1 bash
+	docker exec -it bankholidayservice_api_1 bash
