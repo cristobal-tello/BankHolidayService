@@ -1,18 +1,21 @@
 <?php
 
-namespace Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday;
+namespace Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\Entity;
+
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Location
 {
     private string $id;
     private string $name;
-    private \ArrayObject $holidays;
+    private Collection $bankHolidays;
 
     public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->holidays = new \ArrayObject();
+        $this->bankHolidays = new ArrayCollection();
     }
 
     public function id(): string
@@ -25,13 +28,8 @@ class Location
         return $this->name;
     }
 
-    public function holidays(): \ArrayObject
+    public function holidays(): Collection
     {
-        return $this->holidays;
-    }
-
-    public function setHolidays(array $holidays)
-    {
-        $this->holidays = $holidays;
+        return $this->bankHolidays;
     }
 }

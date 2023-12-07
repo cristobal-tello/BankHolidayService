@@ -1,3 +1,6 @@
 services:
-  api.repository.bankholidayrepository:
-    class : Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\BankHolidayMockRepository
+  api.repository.locationdoctrinerepository:
+    class : Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\LocationDoctrineRepository
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+    
