@@ -43,7 +43,7 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
 
                 // Now that we get the node, we need to parse it
                 $json = $this->parseNodeTextToJson($node->text());
-                
+
                 // Get the valid name of the location/city
                 $validLocation = $json->city;
 
@@ -53,9 +53,9 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
                     $festiveDateTime->setTime(0, 0, 0);
                     $results->append(
                         [
-                            'location' => html_entity_decode($validLocation, ENT_HTML5, 'UTF-8'),
+                            'location' => html_entity_decode($validLocation, ENT_QUOTES | ENT_COMPAT | ENT_HTML5 | ENT_XML1, 'UTF-8'),
                             'date' => $festiveDateTime,
-                            'name' =>  html_entity_decode($festiveDay->descripcion, ENT_HTML5, 'UTF-8')
+                            'name' =>  html_entity_decode($this->my_numeric2character($festiveDay->descripcion), ENT_QUOTES | ENT_COMPAT | ENT_HTML5 | ENT_XML1, 'UTF-8'),
                         ]
                     );
                 }
@@ -81,5 +81,12 @@ class CalendarioLaboralBankHolidayFinder implements BankHolidayFinderInterface
         $jsonString = substr($jsonString, 0, $position);
         $jsonString = str_replace(';', '', $jsonString);
         return json_decode($jsonString);
+    }
+
+    /* Converts any HTML-entities into characters */
+    private function my_numeric2character($t)
+    {
+        $convmap = array(0x0, 0x2FFFF, 0, 0xFFFF);
+        return mb_decode_numericentity($t, $convmap, 'UTF-8');
     }
 }
