@@ -6,6 +6,6 @@ use Acme\Services\BankHoliday\Api\Domain\Model\BankHoliday\Location;
 
 interface LocationRepositoryInterface
 {
-    public function getLocation(string $locationName): ?Location;
-    public function saveLocation(Location $location);
+    public function getLocationHolidays(string $locationName, int $year): ?Location;
+    public function saveLocationHolidays(Location $location);
 }

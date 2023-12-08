@@ -10,7 +10,7 @@ class BankHolidayRequest
     public function __construct(string $location, int $year = null)
     {
         $this->location = $location;
-        $this->year = $year;
+        $this->year = $year ?: DATE('Y');
     }
 
     public function location(): string

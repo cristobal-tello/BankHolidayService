@@ -10,9 +10,18 @@ use Acme\Services\BankHoliday\Api\Domain\Repository\BankHoliday\LocationReposito
 
 class LocationDoctrineRepository extends DoctrineRepository implements LocationRepositoryInterface
 {
-    public function getLocation(string $location): ?Location
+    public function getLocationHolidays(string $locationName, int $year): ?Location
     {
-        $locationEntity = $this->repository->findOneBy(['name' => $location]);
+        $queryBuilder = $this->entityManager->createQueryBuilder()
+            ->select('l', 'bh')
+            ->from($this->entityClassName(), 'l')
+            ->leftJoin('l.bankHolidays', 'bh', 'WITH', 'YEAR(bh.date) = :year')
+            ->setParameter('year', $year)
+            ->where('l.name = :location')
+            ->setParameter('location', $locationName)
+            ->getQuery();
+
+        $locationEntity = $queryBuilder->getOneOrNullResult();
 
         if ($locationEntity !== null) {
             $location = new Location($locationEntity->id(), $locationEntity->name());
@@ -31,9 +40,9 @@ class LocationDoctrineRepository extends DoctrineRepository implements LocationR
         return null;
     }
 
-    public function saveLocation(Location $location)
+    public function saveLocationHolidays(Location $location)
     {
-        $locationEntity = new LocationEntity(
+        $locationEntity = $this->repository->findOneBy(['name' => $location->name()]) ?: new LocationEntity(
             $location->id(),
             $location->name()
         );

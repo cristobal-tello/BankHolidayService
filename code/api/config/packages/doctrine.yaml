@@ -22,3 +22,6 @@ doctrine:
                 dir: '%kernel.project_dir%/src/BankHoliday/Api/Infrastructure/Database/BankHoliday/Doctrine/Mapping'
                 prefix: 'Acme\Services\BankHoliday\Api\Infrastructure\Database\BankHoliday\Doctrine\Entity'
                 alias: App
+        dql:
+            string_functions:
+                YEAR: DoctrineExtensions\Query\Mysql\Year
