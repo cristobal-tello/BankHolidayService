@@ -24,15 +24,18 @@ class BankHolidayHandler
     public function __invoke(BankHolidayRequest $bankHolidayRequest): array
     {
         // Check if we can get the location from the database
-        $location = $this->locationRepository->getLocation($bankHolidayRequest->location());
-        if (!$location) {
-            $location = new Location(
+        $location = $this->locationRepository->getLocationHolidays($bankHolidayRequest->location(), $bankHolidayRequest->year());
+
+        if (!$location || 0 == count($location->holidays())) {
+            $bankHolidaysFound = $this->bankHolidayFinder->getBankHolidays($bankHolidayRequest->location(), $bankHolidayRequest->year());
+            
+            // TO-DO: Exception here if bankHolidayFound is empty? 
+
+            $location = $location ?: new Location(
                 Uuid::uuid4()->toString(),
                 $bankHolidayRequest->location()
             );
-
-            $bankHolidaysFound = $this->bankHolidayFinder->getBankHolidays($bankHolidayRequest->location(), $bankHolidayRequest->year());
-
+               
             foreach ($bankHolidaysFound as $bankHoliday) {
                 $location->holidays()[] =
                     new BankHoliday(
@@ -42,7 +45,7 @@ class BankHolidayHandler
                         $bankHoliday['name']
                     );
             }
-            $this->locationRepository->saveLocation($location);
+            $this->locationRepository->saveLocationHolidays($location);
         }
 
         $bankHolidayResponseArray = [];
@@ -53,6 +56,7 @@ class BankHolidayHandler
             );
             $bankHolidayResponseArray[] = $bankHolidayResponse->toArray();
         }
+
         return $bankHolidayResponseArray;
     }
 }
