@@ -1,4 +1,4 @@
-PROJECT_NAME=BankHolidayService
+PROJECT_NAME=test-stimulus
 USER_ID:=$(shell id -u)
 GROUP_ID:=$(shell id -g)
 COMPOSE=docker-compose -p "$(PROJECT_NAME)" -f docker/docker-compose.yml
@@ -10,6 +10,8 @@ DOCKER_GID=$(GROUP_ID)
 up:
 	$(COMPOSE) build
 	$(COMPOSE) up -d
+down:
+	$(COMPOSE) stop
 refresh:
 	$(COMPOSE) down
 	$(COMPOSE) build
@@ -19,4 +21,4 @@ reload:
 	$(COMPOSE) build
 	$(COMPOSE) up -d
 bash:
-	docker exec -it bankholidayservice_api_1 bash
+	docker exec -it 90 bash
