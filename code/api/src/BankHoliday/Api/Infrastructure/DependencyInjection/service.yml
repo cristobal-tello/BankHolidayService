@@ -1,3 +1,0 @@
-services:
-  api.services.bankholikdaycalendariolaboralfinder:
-    class : Acme\Services\BankHoliday\Api\Infrastructure\Services\BankHoliday\CalendarioLaboralBankHolidayFinder

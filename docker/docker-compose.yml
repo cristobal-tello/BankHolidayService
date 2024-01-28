@@ -1,18 +1,18 @@
 version: '3.8'
 services:
-  api:
-    build: api
+  test-stimulus:
+    build: test-stimulus
     volumes:
-      - ../code:/var/www/html/acme/bankholiday
-  nginx:
+      - ../code:/var/www/html/test-stimulus
+  nginxx:
     image: nginx:latest
     ports:
       - "80:80"
     volumes:
-      - ../code:/var/www/html/acme/bankholiday
+      - ../code:/var/www/html/test-stimulus
       - ./nginx/conf.d:/etc/nginx/conf.d
     links:
-      - api
+      - test-stimulus
   db:
     image: mysql:latest
     restart: always
@@ -20,6 +20,6 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=acme
-      - MYSQL_USER=bankholiday_user
+      - MYSQL_DATABASE=test-stimulus
+      - MYSQL_USER=stimulus_user
       - MYSQL_PASSWORD=1234

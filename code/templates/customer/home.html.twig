@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<h1>Customers</h1>
+{% for customer in customers %}
+    <p>
+        <a href="/customer/{{ customer.id }}">
+        {{ customer.name }}
+        </a>
+    </p>
+{% endfor %}
+<hr>   
+<a href="{{ path
+              ('app_customer_new') 
+              }}">
+              Add new customer
+          </a>
+{% endblock %}

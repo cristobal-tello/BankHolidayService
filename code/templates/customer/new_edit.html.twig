@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container theme-showcase"  style="padding-top: 70px;" role="main">
+      
+    <div class="page-header">
+        <h1>{{ titleForm }} Customer</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          {{ form_start (customerForm) }}
+            {{ form_widget(customerForm) }}
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ path ('app_customer_home') }}" class="btn btn-danger">Cancel</a>
+
+          {{ form_end (customerForm) }}
+        <div>
+    </div>
+      
+</div> <!-- /container -->
+
+{% endblock %}
